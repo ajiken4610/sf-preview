@@ -1,13 +1,8 @@
+import { Analytics } from "@firebase/analytics";
 import { defineStore } from "pinia";
 
-export const useCounterStore = defineStore("counter", {
-  state: () => ({ count: 0 }),
-  getters: {
-    double: (state) => state.count * 2,
-  },
-  actions: {
-    increment() {
-      this.count++;
-    },
-  },
+export const useAnalyticsStore = defineStore("analytics", {
+  state: () => ({ analytics: null as unknown as Analytics }),
+  getters: {},
+  actions: {},
 });
