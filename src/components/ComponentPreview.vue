@@ -1,18 +1,26 @@
 <template>
   <div>
     <div
-      class="frame-wrapper"
+      class="frame-wrapper block"
       :style="{ paddingTop: ratio + '%' }"
       v-html="frame"
     ></div>
+    <div class="block is-size-5 has-text-weight-bold">{{ state.title }}</div>
+    <hr />
+    <div class="block" v-html="parsedDescription"></div>
   </div>
 </template>
 <script setup lang="ts">
 import { Project } from "@/lib/Project";
 import { computed, defineProps } from "vue";
+import { marked } from "marked";
+import sanitizeHtml from "sanitize-html";
+marked.setOptions({
+  breaks: true,
+});
 const props = defineProps<{ state: Project }>();
 const frame = computed(
-  () => `<iframe src="${props.state.embedLink}"></iframe>`
+  () => `<iframe src="${props.state.embedLink}" allowfullscreen></iframe>`
 );
 const ratio = computed(() => {
   console.log(props.state.embedOrientation);
@@ -24,6 +32,9 @@ const ratio = computed(() => {
       : (16 / 9) * 100;
   }
 });
+const parsedDescription = computed(() =>
+  sanitizeHtml(marked.parse(props.state.description))
+);
 </script>
 
 <style lang="scss">
