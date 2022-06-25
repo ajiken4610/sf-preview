@@ -1,6 +1,7 @@
 <template>
-  <nav></nav>
-  <router-view />
+  <RouterView />
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import "bulma";
+</style>
